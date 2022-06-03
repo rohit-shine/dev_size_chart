@@ -1,67 +1,54 @@
-import {
-  DynamicDataSheetGrid ,
-  keyColumn,
-  textColumn,
-} from 'react-datasheet-grid';
 import {MobilePlusMajor} from '@shopify/polaris-icons';
 import { React,useState, useEffect, useCallback} from 'react';
-import {Divider, Switch} from 'antd';
-// Import the style only once in your app!
-// import 'react-datasheet-grid/dist/style.css';  
+import {Divider, Switch,Table} from 'antd';
+import 'antd/dist/antd.css';
 import "../assets/style.css";     //External CSS used to customize the table
 import { Button , TextContainer, Select } from '@shopify/polaris';
 
-let h = 3;
-
 const SizeChart = () => {
-   
-  const [ data, setData ] = useState([
-    { Sleeve: '10', Chest: '32', Hip:'40'},
-  ])
-
+  
   const [selected, setSelected] = useState('noUnits');
-
   const handleSelectChange = useCallback((value) => setSelected(value), []);
+  /**---------------- Code for Table------------------- */
+  const [data, setData] = useState([
+    { size: 'S',sleeve: 32, chest: 30},  
+  ]);
 
+  const [columns, setColumns] = useState([
+    { title: 'Size', dataIndex: 'size', key: 'size'},
+    {title: 'Sleeve',dataIndex: 'sleeve', key: 'sleeve'},
+    { title: 'Chest', dataIndex: 'chest', key: 'chest'},
+  ]);
+
+
+  /***-------------End Code for Table--------------------------  */
   const options = [
     {label: 'No Units', value: 'noUnits'},
     {label: `Centimeter → Inches`, value: 'cmToIn'},
     {label: 'Millimeter → Inches', value: 'mmToIn'},
   ];
 
-
   console.log(selected);
-  
-  console.log(Object.values(data));
-
-  let Sleeve;
-  let Chest;
-  let Hip;
-
-  data.map(myData => {
-      let totalValues = Object.values(myData);
-      totalValues.map(dan => {
-            const check  = dan/2.54;
-            const finalValue = parseFloat(check).toFixed(2);
-            console.log(finalValue);
-      })
-  })
-
-  const [columns, setcolumns ]= useState( [
-    { title: <input type='text' value='Sleeve' style={{height:'100%', width: '100%', border : 'none'}}/>, id: 'sleeve', ...keyColumn('Sleeve' , textColumn)},
-    { title: 'Chest', id: 'chest', ...keyColumn('Chest' , textColumn)},
-    { title: 'Hip', id: 'hip', ...keyColumn('Hip' , textColumn)},
-  ])
+  // data.map(myData => {
+  //     let totalValues = Object.values(myData);
+  //     totalValues.map(dan => {
+  //           const check  = dan/2.54;
+  //           const finalValue = parseFloat(check).toFixed(2);
+  //           console.log(finalValue);
+  //     })
+  // })
 
    const addColumn =() => {
-      h++;
-     let dynamicHeading = `Heading ${h}`;
-      let newArr = [...columns];
-      newArr.push({title : 'New' , id : '',  ...keyColumn(`${dynamicHeading}`, textColumn)});
-      setcolumns(newArr); 
+      console.log("Clicked on Add column btn");
+      const newCol = [...columns];
+      setColumns[newCol];
+      newCol.push({title : 'Hi', dataIndex : 'hy', key: ''});
+      setColumns(newCol);
+
   }
 
   const addRow = () => {
+    console.log("Clicked on Add Row Btn");
        const newRow = [...data];
        setData[newRow];
        newRow.push(columns);
@@ -76,24 +63,6 @@ const SizeChart = () => {
       console.log("Switched to true!");
     }
   }
-
-
-  useEffect(()=>{
-    const edit = document.getElementsByClassName('dsg-cell-header');
-
-     for ( let i = 0 ; i < edit.length; i++) {
-      //  console.log(i);rs
-
-        // edit[i].addEventListener("click", ()=>{
-        //      edit[i].classList("dsg-cell-header-active").remove();
-        // })
-        
-     }
-    //  edit.addEventListener("click", ()=>{
-    //     console.log("Clicked");
-    //  })
-  })
-
   /**---------------Return Keywords starts---------------------- */
 
   return (
@@ -127,12 +96,13 @@ const SizeChart = () => {
                               </div>
                </TextContainer>
          </div>
-            <DynamicDataSheetGrid 
-              value={data}
-              onChange={setData}
-              columns={columns}
-              lockRows
-            />
+         <div className='customChart'>
+            <Table
+                 columns={columns} 
+                 dataSource={data} 
+                 pagination={false}
+              />
+          </div>
         <div className= 'btn-row'>
           <Button icon = {MobilePlusMajor} onClick = {addRow} size = "slim">Row</Button>
           <Button icon ={MobilePlusMajor} onClick= {addColumn} size = "slim"> Column</Button>
@@ -141,6 +111,11 @@ const SizeChart = () => {
   ) 
 }
 export default SizeChart;  
+
+
+
+
+
 
  
  

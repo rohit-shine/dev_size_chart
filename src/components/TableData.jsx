@@ -1,44 +1,71 @@
-import React from 'react';
+import {React, useState} from 'react';
 import '../assets/style.css';
 
 const TableData = () =>{
    
-    const data = [
-        {title:'head1', firstname:'Nahid', lastName:'Prawez'},
-        {title:'head2', firstname:'Nahid1', lastName:'Prawez1'},
-        {title:'head3', firstname:'Nahid2', lastName:'Prawez2'},
-        {title:'head3', firstname:'Nahid3', lastName:'Prawez3'},
-    ]
+    const [data, setData] = useState([
+        {Size:'S', Sleeve:'20', Chest:'30'},
+        {Size:'M',  Sleeve:'25', Chest:'35'},    
+    ])
 
+    const [column, setColumn] = useState([
+        {title : 'Size'},
+        {title : 'Sleeve'},
+        {title : 'Chest'},
+    ])
 
-    return (
+   const addRow = () => {
+       console.log("You clicked on Btn row");
+       const newRow = [...data];
+       setData[newRow];
+       newRow.push(column);
+       setData(newRow);
+       console.log(data);
+   }
+      
+   const addColumn = () => {
+    console.log("You clicked on Btn Column");
+    //   const newCol = [...column];
+    //    setColumn[newCol];
+    //    newCol.push(data);
+    //    setColumn(newCol);
+    //    console.log(column);
+   }
+
+   /***------------------return Code Goes Here---------------------XXX */
+  return (
       <>
-        <div>
+         <p style = {{textAlign: 'center'}}>Table data</p>
             <table>
-                <thead>
-                    <tr>
-                    {data.map((heading, key)=>{ 
-                      return (
-                            <th key={key}> {heading.title}</th>
-                        )})}
-                        </tr>
-                    </thead>
                 <tbody>
-                    {data.map((myData, index)=>{
-                        return(
-                            <>
-                            <tr>
-                                <td key={index}>{myData.firstname}</td>
-                            </tr>
-                            <tr>       
-                                <td key={index}>{myData.lastName}</td>    
-                            </tr>
-                            </>
-                        )
-                    })}
+                    <tr>
+                       {
+                          column.map((Cols)=> {
+                            return(
+                                    <td>{Object.values(Cols)}</td>
+                                    )
+                                })
+                            }
+                    </tr>
+                    {
+                        data.map((element, key)=>{
+                            return(
+                                   <tr key={key}>
+                                      <td >{element.Size} </td>
+                                      <td >{element.Sleeve} </td>
+                                      <td > {element.Chest}</td>
+                                    </tr>
+                                    )
+                                })
+                    }
                 </tbody>
             </table>
-        </div>
+            
+         <br/>
+            <div>
+                <button onClick={addRow}>Add Row</button>
+                <button onClick={addColumn}>Add Column</button>
+            </div>
       </>
   )
 }

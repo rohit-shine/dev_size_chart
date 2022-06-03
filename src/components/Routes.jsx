@@ -9,6 +9,7 @@ import Products from "./Products";
 import Convertor from "./Convertor";
 import LayoutPage from "./LayoutPage";
 import TableData from "./TableData";
+import Prompt from "./Prompt";
 
 const RoutesMenu = ()=>{
     return(
@@ -24,6 +25,7 @@ const RoutesMenu = ()=>{
                <Route path = "convertor" element = {<Convertor/>} />
                <Route path = "layout" element = {<LayoutPage/>} />
                <Route path = "tabledata" element = {<TableData/>}/>
+               <Route path = "prompt" element = {<Prompt/>} />
             </Routes>
             </>
     )

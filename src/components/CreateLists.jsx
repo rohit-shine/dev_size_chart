@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Button, Card,EmptyState, Layout } from '@shopify/polaris';
 import { useNavigate , Link} from 'react-router-dom';
 import { Spin } from 'antd';
-import Prebuilt from './Prebuilt';
+import Prompt from './Prompt';
 
 export default function createLists() {
   const [loading, setloading] = useState(true);
@@ -12,7 +12,6 @@ export default function createLists() {
 
   const handleOpen = ()=> {
     setActive(!active);
-
    }
 
   useEffect(()=> {
@@ -52,7 +51,7 @@ export default function createLists() {
                      </div>
                  </Card>
             </Layout.Section>
-            <Prebuilt active = {active} setActive = {setActive}/>
+            <Prompt active = {active} setActive = {setActive}/>
         </Layout>
      </div>
     </>
