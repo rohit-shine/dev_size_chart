@@ -1,73 +1,30 @@
-import {React, useState} from 'react';
-import '../assets/style.css';
+import React from 'react';
+import TableHeader from './TableHeader';
+import TableRow from './TableRow';
 
-const TableData = () =>{
-   
-    const [data, setData] = useState([
-        {Size:'S', Sleeve:'20', Chest:'30'},
-        {Size:'M',  Sleeve:'25', Chest:'35'},    
-    ])
-
-    const [column, setColumn] = useState([
-        {title : 'Size'},
-        {title : 'Sleeve'},
-        {title : 'Chest'},
-    ])
-
-   const addRow = () => {
-       console.log("You clicked on Btn row");
-       const newRow = [...data];
-       setData[newRow];
-       newRow.push(column);
-       setData(newRow);
-       console.log(data);
-   }
-      
-   const addColumn = () => {
-    console.log("You clicked on Btn Column");
-    //   const newCol = [...column];
-    //    setColumn[newCol];
-    //    newCol.push(data);
-    //    setColumn(newCol);
-    //    console.log(column);
-   }
-
-   /***------------------return Code Goes Here---------------------XXX */
+export default function TableData({tHeader, tData, customClass}) {
   return (
-      <>
-         <p style = {{textAlign: 'center'}}>Table data</p>
-            <table>
+    <>
+      <table className={customClass}>
+          <thead>
+              <tr>
+                  {
+                    tHeader.map((headerData, index)=>{
+                       return(
+                           <TableHeader key={index} item= {headerData} />
+                       )
+                    } )
+                  }
+              </tr>
+          </thead>
                 <tbody>
-                    <tr>
-                       {
-                          column.map((Cols)=> {
-                            return(
-                                    <td>{Object.values(Cols)}</td>
-                                    )
-                                })
-                            }
-                    </tr>
-                    {
-                        data.map((element, key)=>{
-                            return(
-                                   <tr key={key}>
-                                      <td >{element.Size} </td>
-                                      <td >{element.Sleeve} </td>
-                                      <td > {element.Chest}</td>
-                                    </tr>
-                                    )
-                                })
-                    }
+                    {tData.map((item) => {
+                        return (
+                        <TableRow key={item.id} data={item.items} />
+                        )
+                    })}
                 </tbody>
-            </table>
-            
-         <br/>
-            <div>
-                <button onClick={addRow}>Add Row</button>
-                <button onClick={addColumn}>Add Column</button>
-            </div>
-      </>
+      </table>
+    </>
   )
 }
-
-export default TableData;

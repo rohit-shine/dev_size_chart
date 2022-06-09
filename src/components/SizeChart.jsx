@@ -10,18 +10,27 @@ const SizeChart = () => {
   const [selected, setSelected] = useState('noUnits');
   const handleSelectChange = useCallback((value) => setSelected(value), []);
   /**---------------- Code for Table------------------- */
+
+
   const [data, setData] = useState([
-    { size: 'S',sleeve: 32, chest: 30},  
+    { Size: 'S', Sleeve: 32, Chest: 30},  
   ]);
 
+ const [titleHeader, setTitleHeader] = useState('Ho');
+
+  const checkData = (e) =>{
+     console.log(e.target.value);
+  }
+  
   const [columns, setColumns] = useState([
-    { title: 'Size', dataIndex: 'size', key: 'size'},
-    {title: 'Sleeve',dataIndex: 'sleeve', key: 'sleeve'},
-    { title: 'Chest', dataIndex: 'chest', key: 'chest'},
+    { title: <input type='text' onChange={checkData} />, dataIndex: 'Size', key: '0'},
+    {title: 'Sleeve', dataIndex: 'Sleeve', key: '1'},
+    { title: 'Chest', dataIndex: 'Chest', key: '2'},
   ]);
 
 
   /***-------------End Code for Table--------------------------  */
+
   const options = [
     {label: 'No Units', value: 'noUnits'},
     {label: `Centimeter → Inches`, value: 'cmToIn'},
@@ -58,12 +67,13 @@ const SizeChart = () => {
   const changeToggle = (checked) => {
     if(checked == false) {
        console.log(`Switched to ${checked}`);
-       // Code goes here
     } else {
       console.log("Switched to true!");
     }
   }
+
   /**---------------Return Keywords starts---------------------- */
+  console.log(columns);
 
   return (
     <> 

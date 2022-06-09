@@ -1253,16 +1253,26 @@
 }
 
 
-.customChart thead th input {
-   border: none;  
+.customChart thead th input,td input {
+   border: hidden;  
+   outline: none;
+   cursor: cell;
+   text-align: center;
 }
 
 table th {
    width:50px;
 }
 
-table td:first-child {
+table th input:first-child {
     font-weight: bold;
+}
+
+table tbody tr td  input {
+  /* font-weight: bold;
+   */
+   width: 100%;
+   
 }
 
 .prompt {
@@ -1306,3 +1316,19 @@ table td:first-child {
   padding: 10%;
 }
 
+
+.headerText {
+  width: 100%;
+}
+
+.ant-table-cell input {
+    background-color: transparent;
+    border: hidden;
+    width: 100%;
+    cursor: cell;
+}
+
+.ant-table-cell .focus-visible:focus {
+  border: hidden;
+  outline: none;
+}

@@ -1,93 +1,59 @@
-import {React, useEffect, useState} from "react";
-import '../assets/style.css';
-import Separator from "./LayoutComponent/Separator";
-import TextEditor from './LayoutComponent/TextEditor';
-import VideoComp from './LayoutComponent/VideoComp';
+import React, { useState } from 'react'
+import TableData from './TableData'
+import { Button } from '@shopify/polaris';
 
-const Sheet = () => {
+let id = 3;
 
-    //  const [data, setData] = useState([
-    //      { Sleeve : '10' , Chest : '32' , Hip : '40'},
-    //      { Sleeve : '12' , Chest : '33' , Hip : '41'}
-    //  ]);
-
-    //  const [column, setColumn] =  useState([
-    //      { title : 'Sleeve'},
-    //      { title : 'Chest'},
-    //      {  title : 'Hip'}
-    //  ])
-
-    //  console.log(data);
-
-    //  const addRow = () =>{
-    //      console.log("Clicked!!!");
-    //      const newRow = [...data];
-    //      setData[newRow];
-    //      newRow.push( { Sleeve : '12' , Chest : '33' , Hip : '41'});
-    //      setData(newRow);
-    //  }
-
-    //  console.log(data);
-
-    //  const addColumn = () => {
-    //      const newCol = [...column];
-    //      setColumn[newCol];
-    //      newCol.push({ id : '', value : 'Hip' ,  title : 'Hip'});
-    //      setColumn(newCol);
-    //  }
-
-    return(
-        <>
-          <Separator/>
+export default function Sheet() {
   
-           <br/>
-           <br/>
-            <TextEditor />
+   const [tHeader, setTHeader] = useState(
+       ["Size", "Sleeve", "Chest", "Hip"]
+     );
+ 
+   const [tData, setTData] = useState([
+       {id: "1", items : ["S", '12', '15', '20' ]},
+       {id: "2", items : ["M", '15', '16', '25' ]},
+       {id: "3", items : ["L", '16', '20', '25' ]},
+       {id: "4", items : ["L", '12', '20', '25' ]},
+   ])
 
-            <br/>
-            <br/>
-            <VideoComp/>
-        </>
-    )
+   const addColumn =() => {
+    console.log("Clicked on Add column btn");
+    const newCol = [...tHeader];
+    newCol.push([""]);
+    setTHeader(newCol);
+    tData.map((element)=>{
+        element.items.push('');
+    })
+    
+    
 }
 
-export default Sheet;
-    {/* <div className="customChart">
-        <table>
-            <thead>
-                    {/* <tr>
-                        <th><input type="text" value={data} onChange={(e)=> setData(e.target.value)} /></th>
-                        <th>Test 1</th>
-                        <th>Test 2</th>
-                        <th>Test 3</th>
-                    </tr> */}
+ const addRow = () => {
+  console.log("Clicked on Add Row Btn");
+     const newRow = [...tData];
+     setTData[newRow];
+     console.log(tHeader.length)
+     const length = tHeader.length
+     const arr = []
+     for(let i=0; i<length; i++){
+        arr.push('')
+     }
+     newRow.push({id: id + 1, items :arr}),
+     setTData(newRow);
+  }
 
-    //                 {
-    //                     column.map((dynamicCols, key) =>{
-    //                          <tr key={key}>
-    //                              <th>{dynamicCols.title}</th>
-    //                              <th>{dynamicCols.title}</th>
-    //                              <th>{dynamicCols.title}</th>
-    //                          </tr>
-    //                          console.log(key);
-    //                     })  
-    //                 }
-    //         </thead>
-    //         <tbody>
-    //             {
-    //                 data.map((dynamicData, key)=>{
-    //                     return (
-    //                         <tr key={key}>
-    //                              <td>{dynamicData.Sleeve}</td>
-    //                              <td>{dynamicData.Chest}</td>
-    //                              <td>{dynamicData.Hip}</td>
-    //                         </tr>
-    //                     )
-    //                 })
-    //             }
-    //         </tbody>
-    //     </table>
-    //        <br></br>
-    //     <button onClick={addRow}>Add Row</button>
-    //     <button onClick={addColumn}>Add Column</button>
-    // </div> 
+
+  return (
+        <>
+          <div className="customChart">
+             <TableData tHeader={tHeader} tData = {tData}/>
+          </div>
+
+          <div className= 'btn-row'>
+             <Button  onClick = {addRow} size = "slim">Row</Button>
+             <Button onClick= {addColumn} size = "slim"> Column</Button>
+           </div> 
+        </>
+  )
+}
