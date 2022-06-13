@@ -9,9 +9,7 @@ const VideoComp = () => {
     const [url, setUrl] = useState("");
     const [value, setValue] = useState('');
 
-
     const handleChange =  useCallback((newVal) => setValue(newVal),[]);
-
     console.log(value);
 
     const checkUrl = () => {
@@ -20,7 +18,6 @@ const VideoComp = () => {
          setUrl(UrlSet);
     }
     // setUrl(value);
-
 
     return(
         <>
@@ -33,7 +30,7 @@ const VideoComp = () => {
              <button onClick={checkUrl}>Run Demo</button>
           <div className="youtubeComp">
               <YoutubeOutlined />
-              <iframe src= {url} height ="100%" referrerPolicy="allow-same-origin" width='500px'> </iframe>
+            <iframe src= {url} height ="100%" referrerPolicy="allow-same-origin" width='500px'> </iframe>
           </div>
         </>
     )

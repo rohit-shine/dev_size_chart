@@ -1,133 +1,96 @@
-import {MobilePlusMajor} from '@shopify/polaris-icons';
-import { React,useState, useEffect, useCallback} from 'react';
-import {Divider, Switch,Table} from 'antd';
-import 'antd/dist/antd.css';
-import "../assets/style.css";     //External CSS used to customize the table
-import { Button , TextContainer, Select } from '@shopify/polaris';
+import React, { useState } from 'react';
+
+const tableStyle = {
+
+  border: '1px solid black',
+  borderCollapse: 'collapse',
+  textAlign: 'center',
+  width: '100%'
+}
+
+const tdStyle = {
+  border: '1px solid #85C1E9',
+  background: 'white',
+  padding: '5px'
+};
+
+const thStyle = {
+
+  border: '1px solid #3498DB',
+  background: '#9EE1FF',
+  color: 'black ',
+  padding: '5px'
+};
+
+const input = {
+  width: '100%',
+}
+
+const Table = ({ columns, data, setColumns }) => {
+
+  const handleChange = (e, index) => {
+    const newState = columns.map((obj, id) => {
+      if (index === id) {
+        return { ...obj, title : e.target.value };
+      }
+      return obj;
+    });
+    setColumns(newState);
+
+    data.map((rowData, index)=> {
+         console.log(rowData)
+    })
+  };
+
+
+  return (<table style={tableStyle}>
+    <thead>
+      <tr>
+        {columns.map((cols, index) => (
+          <th style={thStyle} key={index}>
+            <input style={input} type='text' defaultValue={cols.title} onChange={(e) => handleChange(e, index)} />
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {data.map((rowData, index) => (
+        <tr key={index}>
+          {columns.map(({ title }) => (
+            <td style={tdStyle} key={title}>
+              {rowData[title]}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>)
+};
+
 
 const SizeChart = () => {
-  
-  const [selected, setSelected] = useState('noUnits');
-  const handleSelectChange = useCallback((value) => setSelected(value), []);
-  /**---------------- Code for Table------------------- */
 
+  const [columns, setColumns] = useState([
+    { title: "Size" },
+    { title: "Sleeve" },
+    { title: "Chest" },
+    { title: "Hip" },
+  ]);
 
   const [data, setData] = useState([
-    { Size: 'S', Sleeve: 32, Chest: 30},  
+          { Size: 'XS', Sleeve: 16, Chest: 32, Hip: 36 },
+          { Size: 'S', Sleeve: 17, Chest: 33, Hip: 37 },
+          { Size: 'M', Sleeve: 18, Chest: 35, Hip: 35 },
   ]);
-
- const [titleHeader, setTitleHeader] = useState('Ho');
-
-  const checkData = (e) =>{
-     console.log(e.target.value);
-  }
   
-  const [columns, setColumns] = useState([
-    { title: <input type='text' onChange={checkData} />, dataIndex: 'Size', key: '0'},
-    {title: 'Sleeve', dataIndex: 'Sleeve', key: '1'},
-    { title: 'Chest', dataIndex: 'Chest', key: '2'},
-  ]);
-
-
-  /***-------------End Code for Table--------------------------  */
-
-  const options = [
-    {label: 'No Units', value: 'noUnits'},
-    {label: `Centimeter → Inches`, value: 'cmToIn'},
-    {label: 'Millimeter → Inches', value: 'mmToIn'},
-  ];
-
-  console.log(selected);
-  // data.map(myData => {
-  //     let totalValues = Object.values(myData);
-  //     totalValues.map(dan => {
-  //           const check  = dan/2.54;
-  //           const finalValue = parseFloat(check).toFixed(2);
-  //           console.log(finalValue);
-  //     })
-  // })
-
-   const addColumn =() => {
-      console.log("Clicked on Add column btn");
-      const newCol = [...columns];
-      setColumns[newCol];
-      newCol.push({title : 'Hi', dataIndex : 'hy', key: ''});
-      setColumns(newCol);
-
-  }
-
-  const addRow = () => {
-    console.log("Clicked on Add Row Btn");
-       const newRow = [...data];
-       setData[newRow];
-       newRow.push(columns);
-       setData(newRow);
-  }
-
-  const changeToggle = (checked) => {
-    if(checked == false) {
-       console.log(`Switched to ${checked}`);
-    } else {
-      console.log("Switched to true!");
-    }
-  }
-
-  /**---------------Return Keywords starts---------------------- */
-  console.log(columns);
+   console.log(columns);
+   console.log(data);
 
   return (
-    <> 
-        <div  style={{ marginBottom : '30px'}} className="selectBlock">
-             <div className='selectUnits'>
-                <Select
-                    label = "Table Unit Conversion"
-                    options={options}
-                    onChange={handleSelectChange}
-                    value={selected}
-                 />
-             </div>
-        </div>
-        <Divider></Divider>
-         <div style={{textAlign : 'center', marginBottom : '30px'}}>
-              <TextContainer>
-                              <div style={{textAlign : 'center'}}>
-                                { selected == 'cmToIn'  ? <Switch
-                                     checkedChildren= "IN"
-                                     unCheckedChildren= "CM"
-                                     onChange={changeToggle}
-                                 /> : ''
-                                }
-                                { selected == 'mmToIn'  ? <Switch
-                                     checkedChildren= "IN"
-                                     unCheckedChildren= "MM"
-                                     onChange={changeToggle}
-                                 /> : ''
-                                }
-                              </div>
-               </TextContainer>
-         </div>
-         <div className='customChart'>
-            <Table
-                 columns={columns} 
-                 dataSource={data} 
-                 pagination={false}
-              />
-          </div>
-        <div className= 'btn-row'>
-          <Button icon = {MobilePlusMajor} onClick = {addRow} size = "slim">Row</Button>
-          <Button icon ={MobilePlusMajor} onClick= {addColumn} size = "slim"> Column</Button>
-        </div> 
-    </>
-  ) 
-}
-export default SizeChart;  
+    <div>
+      <Table columns={columns} data={data} setColumns={setColumns} />
+    </div>
+  );
+};
 
-
-
-
-
-
- 
- 
-   
- 
+export default SizeChart;

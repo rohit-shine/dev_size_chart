@@ -179,7 +179,7 @@ export default function Prebuilt(create) {
                     <div className = "sub-block" >
                     <img src={shoes} alt = "Shoes" height='100%' width= '100%'/>
                     </div>
-                    <h2 style= {handleStyletxt_8} >Shoes </h2>
+                    <h2 style= {handleStyletxt_8}>Shoes</h2>
                   </Card>
               </div>
            </div>

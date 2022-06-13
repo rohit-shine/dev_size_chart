@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import TableData from './TableData'
 import { Button } from '@shopify/polaris';
 
-let id = 3;
-
 export default function Sheet() {
   
    const [tHeader, setTHeader] = useState(
@@ -11,10 +9,9 @@ export default function Sheet() {
      );
  
    const [tData, setTData] = useState([
-       {id: "1", items : ["S", '12', '15', '20' ]},
-       {id: "2", items : ["M", '15', '16', '25' ]},
-       {id: "3", items : ["L", '16', '20', '25' ]},
-       {id: "4", items : ["L", '12', '20', '25' ]},
+       {items : ["S", '12', '15', '20' ]},
+       {items : ["M", '15', '16', '25' ]},
+       {items : ["L", '16', '20', '25' ]},
    ])
 
    const addColumn =() => {
@@ -25,29 +22,25 @@ export default function Sheet() {
     tData.map((element)=>{
         element.items.push('');
     })
-    
-    
-}
+   }
 
  const addRow = () => {
-  console.log("Clicked on Add Row Btn");
      const newRow = [...tData];
      setTData[newRow];
-     console.log(tHeader.length)
-     const length = tHeader.length
-     const arr = []
+     const length = tHeader.length;
+     const arr = [];
      for(let i=0; i<length; i++){
         arr.push('')
      }
-     newRow.push({id: id + 1, items :arr}),
+     newRow.push({items : arr}),
      setTData(newRow);
   }
 
-
+ 
   return (
         <>
           <div className="customChart">
-             <TableData tHeader={tHeader} tData = {tData}/>
+              <TableData tHeader={tHeader} tData = {tData} setTHeader={setTHeader} />
           </div>
 
           <div className= 'btn-row'>

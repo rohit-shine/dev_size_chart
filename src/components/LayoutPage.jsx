@@ -35,7 +35,6 @@ export default function LayoutPage(props) {
 
   const handleClose = useCallback(() => {
     props.setActive(false);
-    // requestAnimationFrame(() => button.current.querySelector('button').focus());
     }, []);
 
    const HandleOn1 = ()  => {
@@ -126,9 +125,6 @@ export default function LayoutPage(props) {
    /**-------------X------------ Return statement Start-------------- */
   return (
     <div style={{height: '500px'}}>
-      {/* <div ref={button}>
-        <Button onClick={handleOpen}>Add Layout Block</Button>
-      </div> */}
       <Modal
         instant
         open={props.active}
