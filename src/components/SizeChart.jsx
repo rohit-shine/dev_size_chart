@@ -1,71 +1,8 @@
+import { Button } from '@shopify/polaris';
+import {MobilePlusMajor} from '@shopify/polaris-icons';
 import React, { useState } from 'react';
-
-const tableStyle = {
-
-  border: '1px solid black',
-  borderCollapse: 'collapse',
-  textAlign: 'center',
-  width: '100%'
-}
-
-const tdStyle = {
-  border: '1px solid #85C1E9',
-  background: 'white',
-  padding: '5px'
-};
-
-const thStyle = {
-
-  border: '1px solid #3498DB',
-  background: '#9EE1FF',
-  color: 'black ',
-  padding: '5px'
-};
-
-const input = {
-  width: '100%',
-}
-
-const Table = ({ columns, data, setColumns }) => {
-
-  const handleChange = (e, index) => {
-    const newState = columns.map((obj, id) => {
-      if (index === id) {
-        return { ...obj, title : e.target.value };
-      }
-      return obj;
-    });
-    setColumns(newState);
-
-    data.map((rowData, index)=> {
-         console.log(rowData)
-    })
-  };
-
-
-  return (<table style={tableStyle}>
-    <thead>
-      <tr>
-        {columns.map((cols, index) => (
-          <th style={thStyle} key={index}>
-            <input style={input} type='text' defaultValue={cols.title} onChange={(e) => handleChange(e, index)} />
-          </th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {data.map((rowData, index) => (
-        <tr key={index}>
-          {columns.map(({ title }) => (
-            <td style={tdStyle} key={title}>
-              {rowData[title]}
-            </td>
-          ))}
-        </tr>
-      ))}
-    </tbody>
-  </table>)
-};
+import TableData from './TableData';
+import '../assets/style.css';
 
 
 const SizeChart = () => {
@@ -78,18 +15,47 @@ const SizeChart = () => {
   ]);
 
   const [data, setData] = useState([
-          { Size: 'XS', Sleeve: 16, Chest: 32, Hip: 36 },
-          { Size: 'S', Sleeve: 17, Chest: 33, Hip: 37 },
-          { Size: 'M', Sleeve: 18, Chest: 35, Hip: 35 },
+         ['XS', 16, 32, 36],  
+         ['S', 17, 33, 37],
+         ['M', 18, 35, 35],
   ]);
   
-   console.log(columns);
-   console.log(data);
+   const addRow = () => {
+      const newRow = [...data];
+      const arr = [];
+      const length = columns.length;
+      for( let i = 0; i < length; i++) {
+         arr.push('')
+      }
+      newRow.push(arr)
+      setData(newRow);
+   }
+
+    const addColumn = () =>{
+       console.log('Clicked on Add Column button');
+       const newCol = [...columns];
+       newCol.push({title : ''});
+       data.map((element)=>{
+          element.push('')
+       })
+       setColumns(newCol)
+    }
+
+  // console.log(data);
+  // console.log(columns);
+  
 
   return (
-    <div>
-      <Table columns={columns} data={data} setColumns={setColumns} />
-    </div>
+    <>
+       <div className='customChart'>
+         <TableData columns={columns} data={data} setColumns={setColumns} setData = {setData}/>
+       </div>
+           <div className= 'btn-row'>
+             <Button  onClick = {addRow} size = "slim" icon={MobilePlusMajor}>Row</Button>
+             <Button onClick= {addColumn} size = "slim" icon={MobilePlusMajor}> Column</Button>
+          </div> 
+
+    </>
   );
 };
 

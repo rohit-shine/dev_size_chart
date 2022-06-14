@@ -1,7 +1,7 @@
 const Settings = () =>{
   return(
       <>
-        <p> This is a settinng Page</p>
+        <p> This is a setting Page</p>
       </>
   )
 }

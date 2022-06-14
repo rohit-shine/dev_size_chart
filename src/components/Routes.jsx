@@ -8,7 +8,6 @@ import Dashboard from "./Dashboard";
 import Products from "./Products";
 import Convertor from "./Convertor";
 import LayoutPage from "./LayoutPage";
-import TableData from "./TableData";
 import Prompt from "./Prompt";
 import Tabbed from "./LayoutComponent/Tabbed";
 
@@ -25,7 +24,6 @@ const RoutesMenu = ()=>{
                <Route path = "products" element = {<Products/>} />
                <Route path = "convertor" element = {<Convertor/>} />
                <Route path = "layout" element = {<LayoutPage/>} />
-               <Route path = "tabledata" element = {<TableData/>}/>
                <Route path = "prompt" element = {<Prompt/>} />
                <Route path = "tabbedtable" element = {<Tabbed/>} />
             </Routes>

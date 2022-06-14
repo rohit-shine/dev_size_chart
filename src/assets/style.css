@@ -1251,17 +1251,20 @@
   border: 1px solid #6eb8d4;
 }
 
-.customChart table ,td , th{
+.customChart table, td, th{
   border-collapse: collapse;
   border:1px solid #85c6ff;
 }
 
-
 .customChart thead th input,td input {
-   border: hidden;  
-   outline: none;
-   cursor: cell;
-   text-align: center;
+  border: hidden;  
+  outline: none;
+  cursor: cell;
+  text-align: center;
+}
+
+thead th input{
+   background-color: rgb(158, 225, 255);
 }
 
 table tr {
@@ -1275,6 +1278,10 @@ table th input:first-child {
 table tbody tr td  input {
    width: 100%;
 }
+
+/* table tbody tr td:first-child { 
+   background-color: rgb(158, 225, 255);
+} */
 
 .prompt {
   height: 200px;
@@ -1322,14 +1329,3 @@ table tbody tr td  input {
   width: 100%;
 }
 
-.ant-table-cell input {
-    background-color: transparent;
-    border: hidden;
-    width: 100%;
-    cursor: cell;
-}
-
-.ant-table-cell .focus-visible:focus {
-  border: hidden;
-  outline: none;
-}

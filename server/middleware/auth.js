@@ -57,7 +57,7 @@ export function applyAuthMiddleware(app) {
       //Save the shop name to Cookie
       res.cookie("shop" ,  shopName);     
 
-      shopinfo.findOne({shop : shopName},(err,success)=>{
+      shopinfo.findOne({shop : shopName}, (err, success)=>{
         if(!success) { 
               const shopData = new shopinfo({
                 shop : shopName,
@@ -70,7 +70,6 @@ export function applyAuthMiddleware(app) {
             }
        })
          
-
       /** -----------------------X---------------END-----------X--------------- */
 
       const host = req.query.host;
