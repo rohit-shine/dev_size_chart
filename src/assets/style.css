@@ -1329,3 +1329,47 @@ table tbody tr td  input {
   width: 100%;
 }
 
+/**Context menu  Styling */
+.sizeTable {
+  position: relative;
+}
+
+#contextMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  width: fit-content;
+} 
+
+.tableDiv {
+   align-items: center;
+   display: flex;
+   justify-content: center;
+   height: fit-content;
+   width: fit-content;
+   border: 1px solid #cbd5e0;
+}
+.menuLists:hover { 
+  background-color: #6EB8D4;
+  cursor: pointer;
+}
+.menuLists { 
+  list-style-type: none ;
+  background-color: #9EE1FF;
+  width: 150px;
+}
+
+
+.rowMenu .menu{
+   list-style-type: none;
+   background-color: #6EB8D4;
+   width: 200px;
+   text-align: center;
+}
+.rowMenu .menu:hover {
+   background-color: #85c6ff;
+   cursor: pointer;
+}

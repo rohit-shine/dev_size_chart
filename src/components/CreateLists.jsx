@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Card, EmptyState, Layout } from '@shopify/polaris';
 import {Link} from 'react-router-dom';
-import { Spin, Collapse } from 'antd';
+import {Collapse} from 'antd';
 import Prompt from './Prompt';
 const { Panel } = Collapse;
 
@@ -12,18 +12,12 @@ const text = `
 
 export default function createLists() {
 
-  const [loading, setloading] = useState(true);
   const [active, setActive] = useState(false);
 
   const handleOpen = ()=> {
     setActive(!active);
    }
 
-  useEffect(()=> {
-      setTimeout(()=> {
-         setloading(false);
-      }, 3000);
-  })
 
   const onChange = (key) => {
      console.log(key)
@@ -58,7 +52,6 @@ export default function createLists() {
             <Layout.Section oneHalf>
                  <Card>
                      <div style={{height : '300px', width : "100%"}}> 
-                        <Spin spinning = {loading} size="large">
                         <EmptyState 
                             heading= "You haven't created any size charts yet"
                             image='https://cdn.shopify.com/s/files/1/2376/3301/products/emptystate-files.png'
@@ -67,7 +60,6 @@ export default function createLists() {
                                 Click <Link to = "/createchart" >Create Size Chart</Link> to create size chart for your products. You can add custom rules to any product you want.
                               </p>
                           </EmptyState>
-                          </Spin>
                      </div>
                  </Card>
             </Layout.Section>

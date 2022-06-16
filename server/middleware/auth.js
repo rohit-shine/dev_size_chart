@@ -55,7 +55,7 @@ export function applyAuthMiddleware(app) {
       const shopAccessToken = session.accessToken;
 
       //Save the shop name to Cookie
-      res.cookie("shop" ,  shopName);     
+      res.cookie("shop", shopName);     
 
       shopinfo.findOne({shop : shopName}, (err, success)=>{
         if(!success) { 

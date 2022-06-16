@@ -92,10 +92,6 @@ const router = window.location;
     <TopBar
       showNavigationToggle
       userMenu={userMenuMarkup}
-      // searchResultsVisible={searchActive}
-      // searchField={searchFieldMarkup}
-      // searchResults={searchResultsMarkup}
-      // onSearchResultsDismiss={handleSearchResultsDismiss}
       onNavigationToggle={toggleMobileNavigationActive}
     />
   );
@@ -119,23 +115,18 @@ const router = window.location;
           {sideNav.map((sideNav, index) => {
             return (
               <li key={index} className="Polaris-Navigation__ListItem">
-                <Link to={sideNav.url}>
-                  
-                  <a
-                    className={
+                <Link to={sideNav.url}  className={
                       router.pathname == sideNav.url
                         ? "Polaris-Navigation__Item Polaris-Navigation__Item--selected Polaris-Navigation--subNavigationActive"
                         :
                          "Polaris-Navigation__Item"
-                    }
-                  >
+                    }>
                     <div className="Polaris-Navigation__Icon">
                       <Icon source={sideNav.icon} color="base" />
                     </div>
                     <span className="Polaris-Navigation__Text">
                       {sideNav.name}
                     </span>
-                  </a>
                 </Link>
               </li>
             );
@@ -148,22 +139,18 @@ const router = window.location;
           {subNav.map((subNav, index) => {
             return (
               <li key={index} className="Polaris-Navigation__ListItem">
-                <Link to={subNav.url} replace>
-                  <a
-                    className={
+                <Link to={subNav.url} replace  className={
                       router.pathname == subNav.url
                         ? "Polaris-Navigation__Item Polaris-Navigation__Item--selected Polaris-Navigation--subNavigationActive"
                         :
                          "Polaris-Navigation__Item"
-                    }
-                  >
+                    }>
                     <div className="Polaris-Navigation__Icon">
                       <Icon source={subNav.icon} color="base" />
                     </div>
                     <span className="Polaris-Navigation__Text">
                       {subNav.name}
                     </span>
-                  </a>
                 </Link>
               </li> 
             );

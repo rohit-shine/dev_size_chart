@@ -5,9 +5,10 @@ import TableData from './TableData';
 import '../assets/style.css';
 
 
+
 const SizeChart = () => {
 
-  const [columns, setColumns] = useState([
+    const [columns, setColumns] = useState([
     { title: "Size" },
     { title: "Sleeve" },
     { title: "Chest" },
@@ -15,9 +16,9 @@ const SizeChart = () => {
   ]);
 
   const [data, setData] = useState([
-         ['XS', 16, 32, 36],  
-         ['S', 17, 33, 37],
-         ['M', 18, 35, 35],
+         ['XS', '16', '32', '36'],  
+         ['S', '17', '33', '37'],
+         ['M', '18', '35', '35'],
   ]);
   
    const addRow = () => {
@@ -41,20 +42,15 @@ const SizeChart = () => {
        setColumns(newCol)
     }
 
-  // console.log(data);
-  // console.log(columns);
-  
-
   return (
     <>
        <div className='customChart'>
-         <TableData columns={columns} data={data} setColumns={setColumns} setData = {setData}/>
+         <TableData columns={columns} data={data} setColumns={setColumns} setData = {setData} addColumn = {addColumn}/>
        </div>
            <div className= 'btn-row'>
              <Button  onClick = {addRow} size = "slim" icon={MobilePlusMajor}>Row</Button>
              <Button onClick= {addColumn} size = "slim" icon={MobilePlusMajor}> Column</Button>
           </div> 
-
     </>
   );
 };

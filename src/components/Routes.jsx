@@ -10,6 +10,7 @@ import Convertor from "./Convertor";
 import LayoutPage from "./LayoutPage";
 import Prompt from "./Prompt";
 import Tabbed from "./LayoutComponent/Tabbed";
+import ContextMenu from "./ContextMenu";
 
 const RoutesMenu = ()=>{
     return(
@@ -26,6 +27,7 @@ const RoutesMenu = ()=>{
                <Route path = "layout" element = {<LayoutPage/>} />
                <Route path = "prompt" element = {<Prompt/>} />
                <Route path = "tabbedtable" element = {<Tabbed/>} />
+               <Route path = "context" element = {<ContextMenu/>} />
             </Routes>
             </>
     )
