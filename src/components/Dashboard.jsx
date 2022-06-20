@@ -6,7 +6,7 @@ import "../assets/style.css";
 
 const Dashboard = () => {
 
-        const [loadTime, setloadTime] = useState(true);
+        const [loadTime, setloadTime] = useState();
 
         useEffect(()=>{
                 setTimeout(()=>{

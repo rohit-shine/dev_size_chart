@@ -1,30 +1,35 @@
 import {React, useState, useCallback} from "react";
 import { Button , Page, Banner,Icon, Card, Layout,TextContainer,Heading, TextField, Select} from "@shopify/polaris";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../assets/style.css";
 import {
     MobileBackArrowMajor,QuestionMarkInverseMajor,PlusMinor
   } from '@shopify/polaris-icons';
 import LayoutPage from "./LayoutPage";
 import SizeChart from './SizeChart';
-
-/***End of --------------X------------- Importing Code */
+import Tabbed from "./LayoutComponent/Tabbed";
+import Separator from "./LayoutComponent/Separator";
+import TextEditor from "./LayoutComponent/TextEditor";
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
 /***Function code goes here */
+
 export const CreateCharts = () => {
+   
+   const params = useParams();
      const navigate = useNavigate();
+
      const [text, setText] = useState('');
      const [active, setActive] = useState(false);
-
+     const  [showComponent, setShowComponent] = useState([]);
      const [selected, setSelected] = useState('draft');
 
-  const handleSelectChange = useCallback((value) => setSelected(value), []);
-
-  const options = [
-    {label: 'Draft', value: 'draft'},
-    {label: 'Active', value: 'active'},
-  ];
+     const handleSelectChange = useCallback((value) => setSelected(value), []);
+      const options = [
+         {label: 'Draft', value: 'draft'},
+         {label: 'Active', value: 'active'},
+      ];
 
     const HandlerBack = () => {
          navigate("/sizechart")
@@ -37,8 +42,9 @@ export const CreateCharts = () => {
     }
     const handleOpen = ()=> {
        setActive(!active);
-
       }
+
+   /**---------Return Statement Starts------------------ */
     return(
        <>
           <Page fullWidth>
@@ -79,11 +85,10 @@ export const CreateCharts = () => {
                     </div>
                     <div className="toggleSwitch">
                         <Select
-                              // label="Status"
                               options={options}
                               onChange={handleSelectChange}
                               value={selected}
-                        />
+                         />
                     </div>
                  </div>
               </Page>
@@ -101,12 +106,25 @@ export const CreateCharts = () => {
                         </div>
                      </TextContainer>
                           <Card.Section sectioned>
-                             <div>
-                                <SizeChart/>
-                             </div>
+                                 
+                                                {(params.id == 'table') ? <SizeChart/>  : <Tabbed/> }
+                                                {
+                                                   showComponent.map((data, index)=> {
+                                                         return(
+                                                            (data == 'Table') ?  <div key={index} >{<SizeChart/>} </div> : 
+                                                            (data == 'Text') ?   <div key={index} >{<TextEditor/>}</div>  :
+                                                            (data == 'Image') ?  <div key={index} >Images</div>  :
+                                                            (data == 'Divider') ? <div key={index} >{<Separator/>}</div>  :
+                                                            (data == 'Youtube') ? <div key={index} >Youtube</div>  :
+                                                            (data == 'Layout') ? <div key={index} >Layout</div>  :
+                                                            (data == 'Quotes') ? <div key={index} >Quotes</div>  :
+                                                            (data == 'Int. Conv. Chart') ? <div key={index} >Conversion Chart</div>  : ''
+                                                            )
+                                                         })
+                                                   }
                           </Card.Section>
                           <Card.Section>
-                              <Button primary = {true} icon={PlusMinor} onClick= {handleOpen} > Add Layout Block</Button>
+                              <Button primary = {true} icon={PlusMinor} onClick= {handleOpen}> Add Layout Block</Button>
                           </Card.Section>
                   </Card>
                </Layout.Section>
@@ -124,7 +142,7 @@ export const CreateCharts = () => {
                </Layout.Section>
             </Layout>
             </Page>       
-           <LayoutPage active = {active} setActive = {setActive}/> 
+           <LayoutPage active = {active} setActive = {setActive} showComponent = {showComponent} setShowComponent = {setShowComponent}/> 
        </>
     )
 }

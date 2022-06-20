@@ -4,10 +4,7 @@ import React, { useState } from 'react';
 import TableData from './TableData';
 import '../assets/style.css';
 
-
-
 const SizeChart = () => {
-
     const [columns, setColumns] = useState([
     { title: "Size" },
     { title: "Sleeve" },
@@ -33,7 +30,6 @@ const SizeChart = () => {
    }
 
     const addColumn = () =>{
-       console.log('Clicked on Add Column button');
        const newCol = [...columns];
        newCol.push({title : ''});
        data.map((element)=>{
@@ -42,6 +38,7 @@ const SizeChart = () => {
        setColumns(newCol)
     }
 
+    console.log(data)
   return (
     <>
        <div className='customChart'>

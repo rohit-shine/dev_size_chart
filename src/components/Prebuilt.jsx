@@ -16,6 +16,7 @@ import shoes from '../assets/shoes.jpg';
 
 
 export default function Prebuilt(create) {
+  
   const [loading, setloading] = useState(true);
   const navigate = useNavigate();
 
@@ -94,7 +95,6 @@ export default function Prebuilt(create) {
    })
 
    const handleScratch = () => {
-      console.log("Clicked on Scratch");
       navigate("/createchart");
    }
 /**-------------X------------ Return statement Start-------------- */

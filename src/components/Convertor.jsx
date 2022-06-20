@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const Convertor = () =>{
-   
     const [result, setResult] = useState(1);
     const [resultMM, setresultMM] = useState(1);
     const [resultMeter, setresultMeter] = useState(1);

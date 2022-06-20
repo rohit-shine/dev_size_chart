@@ -1,8 +1,8 @@
-import { Card, Modal, TextContainer, Button, Heading } from '@shopify/polaris';
+import { Card, Modal, Heading } from '@shopify/polaris';
 import {React, useState, useCallback} from 'react';
 import '../assets/style.css';
 import {BsLayoutSplit, BsTable} from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
 const Prompt = (show) => {
@@ -15,12 +15,12 @@ const Prompt = (show) => {
 
   const handleSimple = () =>{
       console.log("Clicked on Simple Table");
-      navigate('/createchart');
+      navigate(`/createchart/table`);
   }
 
   const handleTabbed = () =>{
       console.log("Clicked on Tabbed Table");
-    navigate('/createchart');
+    navigate(`/createchart/tabbedtable`);
 }
 
 
@@ -64,6 +64,4 @@ const Prompt = (show) => {
     </>
   )
 }
-
-
 export default Prompt;

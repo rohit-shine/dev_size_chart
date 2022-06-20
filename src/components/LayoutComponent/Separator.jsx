@@ -7,7 +7,7 @@ const Separator = () => {
 
     return(
      <>
-        <Divider plain> { HandleTitle}</Divider>
+        <Divider plain> { HandleTitle} </Divider>
      </>
     )
 }

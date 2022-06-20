@@ -2,21 +2,13 @@ import React, { useEffect, useState } from 'react';
 import '../assets/style.css';
 
 const tableStyle = {
-
   border: '1px solid black',
   borderCollapse: 'collapse',
   textAlign: 'center',
   width: '100%'
 }
 
-const tdStyle = {
-  border: '1px solid #85C1E9',
-  background: 'white',
-  padding: '5px'
-};
-
 const thStyle = {
-
   border: '1px solid #3498DB',
   background: '#9EE1FF',
   color: 'black ',
@@ -28,14 +20,13 @@ const input = {
   border: 'hidden'
 }
 
-
-let headerIndex = '';   // Header Column Index when right Click
- 
 const TableData = ({ columns, data, setColumns, setData}) => {
 
-  const [ showContext , setShowContext] = useState(false);
   const [showRowContext,  setShowRowContext] = useState(false);
-
+  const [headerIndex, setHeaderIndex] = useState('');
+  const [fieldIndex, setFieldIndex] = useState('');
+  const [checkRow, setCheckRow] = useState(true);
+  
   /** Remove Default Context Menu */
   const removeDefaultMenu = (e) => {
         e.preventDefault();
@@ -60,7 +51,6 @@ useEffect(()=>{
 
   const handleChangeData = (e, rowIndex , colIndex ) =>{
       const updatedData = e.target.value;
-        DataIndex = colIndex;
        let newArr = [...data];
        newArr[rowIndex][colIndex] = updatedData;
        setData(newArr);
@@ -68,16 +58,16 @@ useEffect(()=>{
 
   /** Hanle Context Header */
   const handleContextHeader = (e, index) => {
-        console.log(e.target.value);
-        headerIndex = index;
-        setShowContext(true);
+        setHeaderIndex(index);
+        setCheckRow(false);
+        setShowRowContext(true);
   }
 
   /*** Handle Context Menu on Rows */
   const handleContextRow = (e, rowIndex, colIndex) => {
-      console.log(e.target.value);
-      console.log(rowIndex);
-      console.log(colIndex);
+      setHeaderIndex(colIndex);
+      setFieldIndex(rowIndex);
+      (checkRow == false) ? setCheckRow(true) : '';
       setShowRowContext(true);
   }
 
@@ -88,7 +78,7 @@ useEffect(()=>{
        data.map((allData)=> {
           allData.splice(headerIndex, 0 , '')
        })
-       setShowContext(false);
+       setShowRowContext(false);
   }
 
   const handleDeleteColumn = () =>{
@@ -98,32 +88,56 @@ useEffect(()=>{
         data.map((allData) => {
           allData.splice(headerIndex, 1);
         })
-        setShowContext(false);
+        setShowRowContext(false);
   }
 
-  const contextCustomMenu = (
-    <ul className='contextMenu' id='contextMenu'>
-        <li className='menuLists' onClick = {handleAddColumn}> Insert Column </li>
-        <li className='menuLists' onClick={handleDeleteColumn}> Delete Column </li> 
-    </ul>
-   )
+  const handleRowAbove = () => {
+      const newRow = [...data];
+      const arr = [];
+      for(let i=0; i<columns.length; i++){
+          arr.push('');
+      }
+      if(fieldIndex >= 0) {
+         newRow.splice(fieldIndex, 0, arr);
+         setData(newRow);
+      }
+      setShowRowContext(false);
+  }
+
+  const handleRowBelow = () => {
+     const newRowBelow = [...data];
+     const arr = [];
+     for(let i=0; i<columns.length; i++){
+      arr.push('');
+      }
+      if(fieldIndex < data.length) {
+        newRowBelow.splice(fieldIndex +1, 0, arr);
+        setData(newRowBelow);
+      }
+      setShowRowContext(false);
+  }
+
+  const deleteRow = () => {
+      const rowDelete = [...data];
+      rowDelete.splice(fieldIndex, 1);
+      setData(rowDelete);
+  }
 
    const contextMenuRow = (
        <ul className='rowMenu'>
            <li className='menu' onClick = {handleAddColumn}> Insert Column </li>
            <li className='menu' onClick={handleDeleteColumn}> Delete Column </li> 
-           <li className='menu'>Insert Row Above</li>
-           <li className='menu'>Insert Row Below</li>
-           <li className='menu' >Delete Row</li>
+          { (checkRow) ? <li className='menu' onClick={handleRowAbove} >Insert Row Above</li> : '' } 
+           <li className='menu' onClick={handleRowBelow}>Insert Row Below</li>
+           <li className='menu' onClick={deleteRow}>Delete Row</li>
        </ul>  
    )
    useEffect( ()=> {
       document.addEventListener('click', () => {
-            setShowContext(false);
             setShowRowContext(false);
       })
    })
-
+  
   return(
     <>
      <div className='sizeTable'>
@@ -164,9 +178,7 @@ useEffect(()=>{
               </tbody>
             </table>
       </div>
-                { ( showContext ) ? contextCustomMenu : ''}
                 { ( showRowContext ) ? contextMenuRow : ''}
-                
    </div>
     </>
     )

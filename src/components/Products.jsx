@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 // Import CSS from assets folder
 import "../assets/style.css";
 import {Card, Button, ResourceList, ResourceItem, TextStyle} from "@shopify/polaris";
@@ -9,11 +8,7 @@ const Products = () => {
 
    const  HandlefetchProducts = async( ) => {
       console.log("You clicked on products");
-      
-         const result =  await axios.get("/getProducts").then((res)=>{
-                 console.log("Hello World@");
-                 console.log(res);
-          }).catch(err=> console.log(err)); 
+        
     }
 
    
@@ -47,13 +42,11 @@ const Products = () => {
                     ]}
                     renderItem={(item) => {
                       const {id, url, name, location} = item;
-                      // const media = <Avatar customer size="medium" name={name} />;
 
                       return (
                         <ResourceItem
                           id={id}
                           url={url}
-                          // media={media}
                           accessibilityLabel={`View details for ${name}`}
                         >
                           <h3>
